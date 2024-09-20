@@ -1,7 +1,7 @@
 //nginx with a path html 
-docker run --name nginx --hostname ng1 -p 80:80 -v /Users/HusseinNasser/javascript/javascript_playground/nginx-udemy-container/html:/usr/share/nginx/html -d nginx
+docker run --name nginx --hostname ng1 -p 80:80 -v /Users/qui**erindonesia/Downloads/intro-to-nginx/html:/usr/share/nginx/html -d nginx
 
-//inspect ccontainer 
+//inspect container
 docker inspect nginx
 
 //vanilla nginx 
@@ -13,7 +13,9 @@ docker run --hostname nodeapp1 --name nodeapp1 -d nodeapp
 docker run --hostname nodeapp2 --name nodeapp2 -d nodeapp
 docker run --hostname nodeapp3 --name nodeapp3 -d nodeapp
 
-docker run --hostname ng1 --name nginx -p 80:8080 -v /Users/HusseinNasser/javascript/javascript_playground/nginx-udemy-container/nginx.conf:/etc/nginx/nginx.conf -d nginx
+docker run --hostname ng1 --name nginx -p 80:8080 -v /Users/qui**erindonesia/Downloads/intro-to-nginx/nginx.conf:/etc/nginx/nginx.conf -d nginx
+
+docker logs nginx
 
 //create a docker network
 docker network create backendnet
@@ -22,7 +24,12 @@ docker network connect backendnet nodeapp2
 docker network connect backendnet nodeapp3
 docker network connect backendnet nginx
 
-
+// ALTERNATIVE WHEN ABOVE FAILS
+docker run --network backendnet --hostname nodeapp1 --name nodeapp1 -d nodeapp;
+docker run --network backendnet --hostname nodeapp2 --name nodeapp2 -d nodeapp;
+docker run --network backendnet --hostname nodeapp3 --name nodeapp3 -d nodeapp;
+docker run --network backendnet --hostname ng1 --name nginx -d  -p 80:8080 -v ./nginx.conf:/etc/nginx/nginx.conf -d nginx;
+docker run --network backendnet --hostname ng2 --name nginx2 -d  -p 81:8080 -v ./nginx.conf:/etc/nginx/nginx.conf -d nginx;
 
 
 
